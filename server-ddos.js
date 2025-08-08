@@ -22,7 +22,8 @@ app.use(express.urlencoded({ extended: true }));
 
 // Helper function to get real IP
 const getRealIP = (req) => {
-  return req.headers['x-forwarded-for']?.split(',')[0] || 
+  const forwardedFor = req.headers['x-forwarded-for'];
+  return (forwardedFor ? forwardedFor.split(',')[0] : null) || 
          req.connection.remoteAddress;
 };
 
